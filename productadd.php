@@ -1,16 +1,18 @@
 <?php
-
+session_start();
 include "connection.php";
 ?>
-<!--page content area main-->
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Products</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
-	</script>
-	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+     
 
 </head>
 <style type="text/css">
@@ -18,7 +20,8 @@ include "connection.php";
 margin:0;
 	padding:0;
 	font-family: sans-serif;
-	background:url(login.jpg) no-repeat;
+	background:url(b.jpg) no-repeat;
+	/*background:#BAEDE5;*/
 	background-size: cover;
 }
 .login-box{
@@ -29,7 +32,12 @@ margin:0;
 	transform: translate(-50%,-50%);
 	color: white;
 }
-.login-box h1{
+.form_control{
+width: 280px;
+height: 300px;
+
+}
+	.login-box h1{
 	float: left;
 	font-size: 40px;
 	border-bottom: 6px solid #4caf50;
@@ -51,8 +59,8 @@ ul{
 		}
 		ul li{
 			float:left;
-			width: 200px;
-			height: 40px;
+			width: 260px;
+			height: 80px;
 			background-color: none;
 			opacity: .8;
 			line-height: 40px;
@@ -66,35 +74,50 @@ ul{
 </style>
 <body>
 	<ul>
-		<center><div style="background:rgba(255,255,255,.5);width:100%;height:80px;">
-		<li><a >Home</a></li>
-		<li><a href="About.php">About</a></li>
-		<li><a>Products</a></li>
-		<li><a href="contact.php">Contact us</a></li>
-		<li><a href="login.php">Sign in</a></li>
+		<center><div style="background:rgba(187,205,212,.5);width:100%;height:80px;">
+			<li><img style=" float:left;height: 65px; width: 150px;" src="image/logo.png"></li>
+		<li><a href="text.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+		<!-- <li><a href="About.php">About</a></li> -->
+		<li><a href="productadd.php">Add Products</a></li>
+		
+		<!-- <li><a href="contact.php">Contact us</a></li> -->
+		<!-- <li><a href="login.php">Sign out</a></li> -->
+		<li><a href="mailtable.php"><span class="glyphicon glyphicon-envelope"></span></a></li>
+		<ul class="nav navbar-nav navbar-right">
+        
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo "Hi,".$_SESSION['username']; ?></a>
+          <ul class="dropdown-menu">
+            
+            <li class="divider"></li>
+            
+            <li><a href="logout1.php" style="text-decoration:none; color:blue;">Logout</a></li>
+          </ul>
+        </li>
+        
+      </ul>
 	</ul>
 
-					<center><form name="form1" action=""method="post"class="col-lg-6"enctype="multipart/form-data">
-						<div style="background:rgba(250,250,250,.5);width:100%;height:520px;">
-                         <center><h1 style="font-family: algerian">ADD PRODUCTS</h1></center>
+					<center><form name="form1" action=""method="post"class="col-lg-12"enctype="multipart/form-data">
+						<!-- <div style="background:rgba(250,250,250,.5);width:100%;height:520px;">
+                         --> <center><h1 style="font-family: algerian"><b>ADD PRODUCTS</b></h1></center>
                     
-							<table class="table table-bordered"style="border-style:groove;background-color: #E6E6FA">
-								<tr style="border-style:groove;">
-									<td><br>Products Image</td>
+							<table class="table table-bordered"style="background-color: #AED6F1;width: 400px">
+								<!-- <tr style="border-style:groove;"> -->
+									<td><br><b>Products Image</b></td>
 										<td><br><input type="file"name="f1"required="">
 									</td>
 								</tr>
 								
 
-								<tr style="border-style:groove;">
-								<td><br>Product Name:</td>
+								<!-- <tr style="border-style:groove;"> -->
+								<td><br><b>Product Name:</b></td>
 									<td><br><input type="text"class="form-control"placeholder="Product Name" name="ProductName"required="">
 								</td>
 								</tr>
 								
 
 								<tr>
-								<td><br>Unit Price:</td>
+								<td><br><b>Unit Price:</b></td>
 									<td><br><input type="text"class="form-control"placeholder="Unit Price" name="UnitPrice"required="">
 								</td>
 								</tr>
@@ -102,17 +125,17 @@ ul{
 
 
 								<tr>
-							    <td><br>Product Quantity:</td>
+							    <td><br><b>Product Quantity:</b></td>
 							    <td><br><input type="text"class="form-control"placeholder="Product Quantity" name="Quantity"required="">
 								</td>
 								</tr>
 
 
 								<tr>
-								<td><br>Product Description:</td>
+								<td><br><b>Product Description:</b></td>
 									<td><br>
 										<textarea cols="19" rows="10"class="form-control"placeholder="Product Description" name="Description"required=""style="border-radius: 15px 50px;
-  background: #D8BFD8;
+  background: #E6E6FA;
   padding: 20px; 
   width: 200px;
   height: 150px;"></textarea>
@@ -120,7 +143,7 @@ ul{
 								</td>
 								</tr>
 								<center><tr>
-								<td><br><input type="submit"name="submit1"class="btn btn-default submit"value="insert products details"style="background-color: #D8BFD8;color: black;align-items: center;">
+								<td><br><input type="submit"name="submit1"class="btn btn-default submit"value="insert products details"style="background: gray"onclick=window.location="cart.php">
 								</td>
 								</tr></center>
 							</table>

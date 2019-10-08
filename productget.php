@@ -15,16 +15,53 @@ $result=mysqli_query($conn,$query);
   
      <head>
 	 <link rel="stylesheet" type="text/css" href="css/index.css">
+	 <title>Seasonal Product</title>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+     
 	 </head>
 	 <style type="text/css">
 	body{
 margin:0;
 	padding:0;
 	font-family: sans-serif;
-	background:url(login.jpg) no-repeat;
+	background:url(b.jpg) no-repeat;
 	background-size: cover;
 }
+.btnr{
+	border-radius:5px;
+	padding:5px;
+	background:#ff0000;
+	color:white;
+	
+}
 
+.btnr:hover{
+	border-radius:5px;
+	padding:5px;
+	background:#ff5e5e;
+	color:white;
+	
+}
+
+
+.btnb{
+	border-radius:5px;
+	padding:5px;
+	background:#43a7bc;
+	color:white;
+
+}
+
+.btnb:hover{
+	border-radius:5px;
+	padding:5px;
+	background:#68b9ca;
+	color:white;
+
+
+}
 ul{
 			margin: 0px;
 			padding: 0px;
@@ -33,43 +70,54 @@ ul{
 		}
 		ul li{
 			float:left;
-			width: 200px;
-			height: 40px;
+			width: 225px;
+			height: 60px;
 			background-color: none;
 			opacity: .8;
-			line-height: 40px;
+			line-height: 30px;
 			text-align: center;
 			font-size: 20px;
 			font-family: algerian;
 		}
+
 		ul li a:hover{
 			background-color: darkgray;
 		}
 </style>
      
-<body background="login.jpg">
-     
-		<ul>
-		<center><div style="background:rgba(255,255,255,.5);width:100%;height:80px;">
-		<li><a >Home</a></li>
-		<li><a href="About.php">About</a></li>
-		<li><a>Products</a></li>
-		<li><a href="contact.php">Contact us</a></li>
-		<li><a href="login.php">Sign in</a></li>
+<body>
+     <ul>
+		<center><div style="background:rgba(255,255,255,.5);width:220%;height:100px;">
+		<li><a href="text.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+	    <li><a href="productget.php">Products Info</a></li>
+		<li><a href="user_details.php">	User Info</a></li>
+		<li><a href="suppliers_details.php">Supplier Info</a></li>
+		<li><a href="allorders.php">Orders</a></li>
+		<li><a href="Email.php"><span class="glyphicon glyphicon-envelope"></span></a></li>
+	    <li><a href="logout1.php"><span class="glyphicon glyphicon-user"></span>SIGN OUT</a></li>
+	
 	</ul>
 		</div>
+      
+	 
+	    
 		</div>
-   <table align="center" border="1px" style="width:600px; line-height:40px;">
+   <table align="center" border="1px" style="width:900px; line-height:40px;background:#B9E3FF">
+   
+
         <tr>
-		  <th colspan="6"><h2>Product Details</h2></th>
+		  <th colspan="7"><center><h2>Product Details</h2></center></th>
 		  </tr>
 		  <t>
 		   <th> ID </th>
-		   <th> Product Nmae </th>
-		   <th> Unit Price </th>
+		   <th> Product_Name </th>
+		   <th> Unit_Price </th>
 		   <th> Quantity </th>
 		   <th> Description </th>
 		   <th>Image</th>
+		   <!-- <th>Update</th> -->
+		   <th>Delete</th>
+
 		   
 		</th>
 		
@@ -78,13 +126,15 @@ ul{
 		 {
 		?>
                   <tr>
-				   <td><?php echo $rows['id']; ?></td>
+				   <td><?php echo $rows['p_id']; ?></td>
 				   <td><?php echo $rows['Product Name']; ?></td>
-				   <td><?php echo $rows['Unit Price']; ?></td>
-				   <td><?php echo $rows['Quantity']; ?></td>
+				   <td><?php echo $rows['Unit Price']; ?>Tk</td>
+				   <td><?php echo $rows['Quantity']; ?>Kg</td>
 				   <td><?php echo $rows['Description']; ?></td>
 			        <td>
-			        	<img src=" <?php echo $rows["Image"]; ?>" height="120px" width="150px"></td>
+			        	<img src=" <?php echo $rows["Image"]; ?>" height="200px" width="210px"></td>
+			        	<!-- <td><a href="produpdate.php?idd=<?php echo $rows['id'];?>"class='btnb'>Update</a></td> -->
+			        	<td><a href="proddelete.php?idd=<?php echo $rows['p_id'];?>" class='btnb'>Delete</a></td> 
 
 				   
 				  
