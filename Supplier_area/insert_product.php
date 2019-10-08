@@ -51,10 +51,10 @@ ul{
 	</ul>
 
 <br><br>
- 	<form  method="POST" entype="multipart/form-data">
+ 	<form action="insert_product.php"method="post"entype="multipart/form-data">
  		
- 		<div style="background:rgba(250,250,250,.5);width:100%;height:540px;">	
- 		<table align="center"width="700"border="2"bgcolor="#D8BFD8">
+ 		<div style="background:rgba(250,250,250,.3);width:100%;height:540px;">	
+ 		<table align="center"width="700"border="5"bgcolor="#E6E6FA">
  			<tr align="center">
  				<td colspan="7"><h2 style="font-family: algerian;color: blue">Insert New Products Here</h2></td>
  			</tr>
@@ -66,7 +66,7 @@ ul{
  				<td align="leftt"><b>Product Category:</b></td>
  				<td>
  					<select name="product_cat"required>
- 						<option>Select a Category</option>
+ 						<option style="text-decoration-color: blue">Select a Category</option>
  						<?php
  						$get_cats="select *from categories";
 	$run_cats=mysqli_query($con,$get_cats);
@@ -82,7 +82,7 @@ ul{
  			</tr>
  			<tr>
  				<td align="left"><b>Product Image:</b></td>
- 				<td><input type="file" name="imageToUpload"/></td>
+ 				<td><input type="file"name="product_image"required/></td>
  			</tr>
  			<tr>
  				<td align="left"><b>Product Price:</b></td>
@@ -95,10 +95,10 @@ ul{
  			</tr>
  			<tr>
  				<td align="left"><b>Product Description:</b></td>
- 				<td><textarea cols="20" rows="10" name="product_desc"></textarea></td>
+ 				<td><textarea name="product_desc"cols="20" rows="10"></textarea></td>
  			</tr>
  			<tr align="center">
- 				<td colspan="8"><input type="submit"name="insert_post"value="Insert Now"style="background-color: #D8BFD8;"/></td>
+ 				<td colspan="8"><input type="submit"name="insert_post"value="Insert Now"/></td>
  			</tr>
  		</table>
 </div>
@@ -107,32 +107,42 @@ ul{
  </body>
  </html>
 
-
  <?php
 
 if(isset($_POST["insert_post"])){
 
 	$product_title=$_POST['product_title'];
 	$product_cat=$_POST['product_cat'];
-
-	$product_image=$_FILES["imageToUpload"]["name"];
-	$product_image_tmp=$_FILES['imageToUpload']['tmp_name'];
-
-		
 	$product_price=$_POST['product_price'];
 	$product_qnt=$_POST['product_qnt'];
 	$product_desc=$_POST['product_desc'];
+    $file=$_FILES['product_image'];
 
+                                print_r($file);
+
+                                $fileName=$_FILES['product_image']['name'];
+                                $fileTmpName=$_FILES['product_image']['tmp_name'];
+                                $fileSize=$_FILES['product_image']['size'];
+                                $fileError=$_FILES['product_image']['error'];
+                                $fileType=$_FILES['product_image']['type'];
+
+                                $fileExt=explode('.',$fileName );
+                                $fileActualExt =strtolower(end($fileExt));
+                                $allowed = array('jpg','jpeg','png','PNG');
+
+                                if (in_array($fileActualExt, $allowed)) 
+                                {
+                                    $fileDestination='product_images/'.$fileName;
+                                    move_uploaded_file( $fileTmpName, $fileDestination);
+                                }
 	
-	
 
-	$pathname="C:/xampp/htdocs/product_images/";
 
-     if (move_uploaded_file($_FILES["imageToUpload"]["tmp_name"], $pathname.$product_image)) {
-        	
-       $insert_product="insert into products(product_cat,product_title,product_price,product_qnt,product_desc,product_image)values('$product_cat','$product_title','$product_price','$product_qnt','$product_desc','$product_image')";
+       echo $insert_product="insert into products(product_cat,product_title,product_price,product_qnt,product_desc,product_image)values('$product_cat','$product_title','$product_price','$product_qnt','$product_desc','$fileDestination')";
+    
+
     $insert_pro=mysqli_query($con,$insert_product);
-    echo $insert_product;
+    
 	
 
 	if($insert_pro){
@@ -148,7 +158,7 @@ if(isset($_POST["insert_post"])){
 
 
 	
-}
+
 
 
 
